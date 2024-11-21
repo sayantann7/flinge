@@ -1,0 +1,43 @@
+/* Fan Page Styles */
+.fanpage-header {
+  background-size: cover;
+  background-position: center;
+  height: 200px;
+  position: relative;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.fanpage-info {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1rem;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-radius: 0 0 8px 8px;
+}
+
+.fanpage-content {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 2rem;
+}
+
+.members-list {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.member {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.member img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}

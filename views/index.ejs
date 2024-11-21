@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flinge - home</title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo">flinge</a>
+        <div class="nav-links">
+            <a href="/home">Home</a>
+            <button onclick="document.getElementById('recommendationsPopup').classList.add('active')">Recommendations</button>
+            <a href="/profile">Profile</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="grid-layout">
+            <main>
+                <div class="post">
+                    <div class="post-header">
+                        <img src="https://via.placeholder.com/150" alt="User">
+                        <div>
+                            <h3>John Doe</h3>
+                            <small>2 hours ago</small>
+                        </div>
+                    </div>
+                    <p>Just watched Inception for the 5th time and I'm still discovering new details! The way Nolan plays with time and reality is simply masterful. What's your favorite scene?</p>
+                    <div class="post-actions">
+                        <button>❤️ Like <span class="like-count">128</span></button>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="post-header">
+                        <img src="https://via.placeholder.com/150" alt="User">
+                        <div>
+                            <h3>Jane Smith</h3>
+                            <small>5 hours ago</small>
+                        </div>
+                    </div>
+                    <p>"I'm gonna make him an offer he can't refuse." - The Godfather (1972)</p>
+                    <div class="post-actions">
+                        <button>❤️ Like <span class="like-count">95</span></button>
+                    </div>
+                </div>
+            </main>
+
+            <aside class="sidebar">
+                <h2>Trending Fan Pages</h2>
+                <div style="margin-top: 1.5rem;">
+                    <a href="pages/fanpage.html" style="text-decoration: none; color: inherit;">
+                        <div style="margin-bottom: 1.5rem;">
+                            <h3 style="color: var(--primary)">Marvel Cinematic Universe</h3>
+                            <small>250k members</small>
+                        </div>
+                    </a>
+                    <a href="pages/fanpage.html" style="text-decoration: none; color: inherit;">
+                        <div>
+                            <h3 style="color: var(--primary)">Star Wars Saga</h3>
+                            <small>180k members</small>
+                        </div>
+                    </a>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Recommendations Popup -->
+    <div id="recommendationsPopup" class="popup-overlay">
+        <div class="popup">
+            <button class="close-popup" onclick="document.getElementById('recommendationsPopup').classList.remove('active')">×</button>
+            <h2>Your Movie Recommendations</h2>
+            <p>Based on your interests and activity</p>
+            
+            <div class="recommendations-grid">
+                <div class="movie-recommendation">
+                    <img src="https://via.placeholder.com/300x400" alt="Interstellar">
+                    <div class="movie-info">
+                        <h3>Interstellar</h3>
+                        <p>Sci-Fi, Adventure</p>
+                        <p class="recommendation-reason">Because you liked Inception</p>
+                    </div>
+                </div>
+
+                <div class="movie-recommendation">
+                    <img src="https://via.placeholder.com/300x400" alt="The Dark Knight">
+                    <div class="movie-info">
+                        <h3>The Dark Knight</h3>
+                        <p>Action, Drama</p>
+                        <p class="recommendation-reason">From your favorite director Christopher Nolan</p>
+                    </div>
+                </div>
+
+                <div class="movie-recommendation">
+                    <img src="https://via.placeholder.com/300x400" alt="Goodfellas">
+                    <div class="movie-info">
+                        <h3>Goodfellas</h3>
+                        <p>Crime, Drama</p>
+                        <p class="recommendation-reason">Similar to The Godfather</p>
+                    </div>
+                </div>
+
+                <div class="movie-recommendation">
+                    <img src="https://via.placeholder.com/300x400" alt="Memento">
+                    <div class="movie-info">
+                        <h3>Memento</h3>
+                        <p>Thriller, Mystery</p>
+                        <p class="recommendation-reason">Based on your interest in complex narratives</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
