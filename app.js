@@ -76,6 +76,15 @@ app.post("/edit-about",isLoggedIn,async function(req,res){
     res.redirect("/profile");
 });
 
+app.post("/edit-bio",isLoggedIn,async function(req,res){
+    const user = await userModel.findOne({
+        username : req.session.passport.user
+    });
+    user.bio = req.body.bio;
+    await user.save();
+    res.redirect("/profile");
+});
+
 app.post("/edit-profilePic",isLoggedIn,upload.single("profilePic"),async function(req,res){
     if (!req.file){
         return res.status(400).send("No file uploaded");

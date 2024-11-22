@@ -35,6 +35,9 @@
             <% } else { %>
                 <p>No bio added yet</p>
             <% } %>
+            <button class="edit-about" onclick="document.getElementById('editBioPopup').classList.add('active')">
+                ✏️ Edit Bio
+            </button>
             <div class="profile-stats">
                 <div class="stat-box">
                     <div class="stat-number"><%= user.userPosts.length %></div>
@@ -109,11 +112,26 @@
             <form action="/edit-about" method="post">
                 <div class="form-group">
                     <label>Favorite Genres</label>
-                    <input name="genres" type="text" value="Thriller, Sci-Fi, Drama">
+                    <input name="genres" type="text" value="<%= user.about.genres %>">
                 </div>
                 <div class="form-group">
                     <label>Favorite Directors</label>
-                    <input name="directors" type="text" value="Christopher Nolan, Martin Scorsese">
+                    <input name="directors" type="text" value="<%= user.about.directors %>">
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Bio Popup -->
+    <div id="editBioPopup" class="popup-overlay">
+        <div class="popup">
+            <button class="close-popup" onclick="document.getElementById('editBioPopup').classList.remove('active')">×</button>
+            <h2>Edit About</h2>
+            <form action="/edit-bio" method="post">
+                <div class="form-group">
+                    <label>Bio</label>
+                    <input name="bio" type="text" value="<%= user.bio %>">
                 </div>
                 <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Save Changes</button>
             </form>
