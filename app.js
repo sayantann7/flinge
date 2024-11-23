@@ -1,17 +1,16 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const port = 3000;
 const userModel = require("./models/users");
 const postModel = require("./models/posts");
-const fanPageModel = require("./models/fanpage");
 const passport = require("passport");
 const flash = require("connect-flash");
 const localStrategy = require("passport-local");
 passport.use(new localStrategy(userModel.authenticate()));
 const expressSession = require("express-session");
 const upload = require("./models/multer");
-const OpenAI = require("openai");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 app.set("view engine", "ejs");
 app.use(express.static("./public"));
@@ -185,11 +184,6 @@ app.get("/like-post/:id", isLoggedIn, async function (req, res) {
 });
 
 app.get("/recommendations", isLoggedIn, async function (req, res) {
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-  const completion = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
-    messages: [{ role: "user", content: "write a haiku about ai" }],
-  });
   const user = await userModel
     .findOne({
       username: req.session.passport.user,
@@ -203,7 +197,39 @@ app.get("/recommendations", isLoggedIn, async function (req, res) {
     likedCaptions: user.likedPosts.map((post) => post.caption),
   };
 
-  res.send(completion);
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-8b" });
+
+  const prompt = `Suggest 10 movies/series based on the user data which is collected by a social media platform : 
+  user bio : ${userData.bio}, user favorite directors : ${userData.about.directors}, user favorite genres : ${userData.about.genres}, the posts the user have made in the social media platform : ${userData.captions}, the posts the user have liked in the social media platform : ${userData.likedCaptions}
+  `;
+
+  try {
+    const result = await model.generateContent(prompt);
+    const recommendationsText =
+      result.response.candidates[0].content.parts[0].text;
+
+    const lines = recommendationsText.split("\n");
+
+    const movies = lines
+      .map((line) => {
+        const match = line.match(/(\d+)\.\s\*\*(.*?)\s\((.*?)\):\*\*\s(.*)/);
+        if (match) {
+          return {
+            title: match[2],
+            director: match[3],
+            description: match[4],
+          };
+        }
+        return null;
+      })
+      .filter((movie) => movie !== null);
+
+    res.render("recommendations", { movies });
+  } catch (error) {
+    console.log("Error fetching : ", error);
+    res.status(500).send("Failed to generate content. Please try again later.");
+  }
 });
 
 app.get("/logout", function (req, res, next) {
