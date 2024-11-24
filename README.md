@@ -29,6 +29,7 @@ Flinge is a social media platform that allows users to create profiles, make pos
    ```
 
 4. **Set up environment variables**:
+   Go to https://ai.google.dev/gemini-api/docs/api-key/ and create a new API key.
    Create a `.env` file in the root directory and add the following:
    ```
    GEMINI_API_KEY=your_google_generative_ai_key
